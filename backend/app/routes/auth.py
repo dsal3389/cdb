@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Body, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from app.core.security import create_access_token
-from app.crud.profile import get_profile_for_user, create_profile_for_user
+from app.crud.profile import get_profile_brief_for_user, create_profile_for_user
 from app.crud.user import get_user_by_credentials, create_user
 from app.depends import SessionDep, CurrentUserDep
 from app.schemas.user import UserCreateSchema
@@ -48,4 +48,4 @@ async def token(
 @router.get("/me")
 async def current_user(session: SessionDep, user: CurrentUserDep):
     with session.cursor() as cursor:
-        return get_profile_for_user(cursor, str(user.id))
+        return get_profile_brief_for_user(cursor, str(user.id))

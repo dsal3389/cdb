@@ -1,7 +1,7 @@
 import pathlib
 from typing import Optional
 from app.core.settings import settings
-from app.models import Profile
+from app.models import ProfileBrief, Profile
 
 
 __all__ = ("create_profile_table", "create_profile_for_user", "get_profile_for_user")
@@ -34,6 +34,26 @@ def create_profile_for_user(
         'INSERT INTO "Profile"(elo, image, user_id) VALUES (%s, %s, %s)',
         (elo, image_path, user_id),
     )
+
+
+def get_profile_brief_for_user(cursor, user_id: str) -> Optional[ProfileBrief]:
+    """returns the given users id profile"""
+    cursor.execute(
+        """
+        SELECT u.id, u.username, p.image, p.elo FROM "User" u
+            JOIN "Profile" p ON p.user_id = u.id WHERE u.id = %s
+    """,
+        (user_id,),
+    )
+    profile_data = cursor.fetchone()
+
+    if profile_data:
+        return Profile(
+            id=profile_data[0],
+            username=profile_data[1],
+            image=profile_data[2],
+            elo=profile_data[3],
+        )
 
 
 def get_profile_for_user(cursor, user_id: str) -> Optional[Profile]:

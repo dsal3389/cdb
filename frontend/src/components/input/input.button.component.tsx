@@ -6,7 +6,7 @@ interface InputButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonEleme
 
 export default function InputButtonComponent({ loading=false, className="",  children, ...props }: InputButtonComponentProps) {
     return <button 
-        className={ "w-full bg-neutral-800 border border-neutral-700 p-2 cursor-pointer " + className } {...props}>
+        className={ "w-full bg-neutral-800 border border-neutral-700 py-2 px-4 cursor-pointer " + className } {...props}>
         { children }
     </button>
 }

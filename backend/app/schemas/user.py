@@ -1,6 +1,9 @@
 from pydantic import BaseModel
 
 
+__all__ = ("UserSchema", "UserCreateSchema",)
+
+
 class UserSchema(BaseModel):
     username: str
     email: str

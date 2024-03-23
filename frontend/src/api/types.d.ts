@@ -1,20 +1,20 @@
 
 export interface Page<T> {
-    index: number,
-    next: string | null,
+    index: number
+    next: string | null
     results: T[]
 };
 
 export interface Token {
-    access_token: string,
+    access_token: string
     token_type: string
 };
 
 export interface UserInfo {
-    id: string,
-    username: string,
-    email: string,
-    image: string,
+    id: string
+    username: string
+    email: string
+    image: string
     elo: number
 };
 
@@ -25,10 +25,23 @@ export interface ProfileBrief {
     elo: number
 }
 
+export interface Profile {
+    id: string
+    username: string
+    image: string
+    elo: number
+}
+
 export enum GameStatus {
-    white_win = "white_win",
-    black_win = "black_win",
-    draw = "draw"
+    WhiteWin = "white_win",
+    BlackWin = "black_win",
+    Draw = "draw"
+}
+
+export enum GameType {
+    Bullet = "BULLET",
+    Blitz = "BLITZ",
+    Rapid = "RAPID"
 }
 
 export interface GameInfo {
@@ -37,5 +50,8 @@ export interface GameInfo {
     white_player: ProfileBrief
     black_player: ProfileBrief
     status: GameStatus
+    register_date: string
+    play_date: string
+    type: GameType
 };
 

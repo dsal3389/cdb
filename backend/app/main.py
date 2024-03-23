@@ -10,11 +10,12 @@ from app.crud.game import create_game_table
 
 
 ROUTES_MODULES = (
-    "app.routes.auth",
     "app.routes.game",
+    "app.routes.auth",
+    "app.routes.profile"
 )
 
-ORIGINS = ("http://localhost:3000",)  # development endpoint
+ORIGINS = ("http://localhost:3000", "http://10.100.102.47:3000")  # development endpoint
 
 
 app = FastAPI()
