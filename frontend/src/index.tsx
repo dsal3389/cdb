@@ -11,7 +11,9 @@ import {
 
 import Root from './routes/root';
 import Home from './routes/home';
+import AddGame from 'routes/game/add';
 import Login from './routes/auth/login';
+import Register from './routes/auth/register';
 import Profile from 'routes/profile/profile';
 import AuthProvider from 'api/auth.context';
 import './index.css';
@@ -22,11 +24,23 @@ const router = createBrowserRouter([
         element: <Root/>,
         children: [
           { index: true, element: <Home/> },
-          { path: "/auth/login", element: <Login/> },
+          {
+            path: "/auth",
+            children: [
+              { path: "login", element: <Login/> },
+              { path: "register", element: <Register/> }
+            ]
+          },
           {
             path: "/profile",
             children: [
               { path: ":userId", element: <Profile/> }
+            ]
+          },
+          {
+            path: "/games",
+            children: [
+              { path: "add", element: <AddGame/> }
             ]
           }
         ]

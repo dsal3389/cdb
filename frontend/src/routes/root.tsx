@@ -6,7 +6,7 @@ import { Link, Outlet } from "react-router-dom";
 export default function Root() {
     const { user, isAuthenticated } = useAuth();
     return (<>
-        <HeaderComponent className="top-0 h-[64px] z-[1000] border-b-1 border-neutral-700 bg-neutral-900/80 overflow-hidden sticky flex backdrop-blur-md">
+        <HeaderComponent className="top-0 h-[64px] z-[1000] border-b-1 border-neutral-700 bg-neutral-900/60 overflow-hidden sticky flex backdrop-blur-md">
             <img 
                 className="h-[220px] absolute right-[190px] top-[-30px] rotate-[-30deg] z-[999] invert opacity-40 hover:opacity-75 duration-200" 
                 src={ `${process.env.PUBLIC_URL}/kinght.png` } alt="kinght chess" draggable={ false } />
@@ -35,7 +35,7 @@ export default function Root() {
                                 <p className="font-bold text-neutral-200">login</p>
                             </InputButtonComponent>
                         </Link>
-                        <Link to="auth/login">
+                        <Link to="auth/register">
                             <InputButtonComponent>
                                 <p className="font-bold text-neutral-200">register</p>
                             </InputButtonComponent>

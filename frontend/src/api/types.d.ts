@@ -1,7 +1,9 @@
 
 export interface Page<T> {
     index: number
-    next: string | null
+    prev: boolean
+    next: boolean
+    count: number
     results: T[]
 };
 
@@ -32,6 +34,7 @@ export interface Profile {
     elo: number
 }
 
+
 export enum GameStatus {
     WhiteWin = "white_win",
     BlackWin = "black_win",
@@ -53,5 +56,17 @@ export interface GameInfo {
     register_date: string
     play_date: string
     type: GameType
-};
+}
 
+
+export interface GamesStatusCount {
+    white_win: number,
+    black_win: number,
+    draw: number,
+}
+
+
+export interface ProfilePage {
+    profile: Profile,
+    games_status: GamesStatusCount
+}

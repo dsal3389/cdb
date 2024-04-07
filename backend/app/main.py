@@ -4,16 +4,10 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.database import database_session
-from app.crud.profile import create_profile_table
-from app.crud.user import create_user_table
-from app.crud.game import create_game_table
+from app.crud import profile, user, game
 
 
-ROUTES_MODULES = (
-    "app.routes.game",
-    "app.routes.auth",
-    "app.routes.profile"
-)
+ROUTES_MODULES = ("app.routes.game", "app.routes.auth", "app.routes.profile")
 
 ORIGINS = ("http://localhost:3000", "http://10.100.102.47:3000")  # development endpoint
 
@@ -36,9 +30,9 @@ async def startup_event() -> None:
         session.autocommit = True
 
         with session.cursor() as cursor:
-            create_user_table(cursor)
-            create_profile_table(cursor)
-            create_game_table(cursor)
+            user.create_table(cursor)
+            profile.create_table(cursor)
+            game.create_table(cursor)
         session.commit()
 
 

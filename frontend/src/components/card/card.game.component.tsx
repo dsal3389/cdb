@@ -69,7 +69,10 @@ function CardGameComponent({ blackPlayer, whitePlayer, status, playDate, registe
     if(approved) {
         cardclassName.push('border-neutral-700');
     } else {
-        cardclassName.push('border-red-800')
+        cardclassName = cardclassName.concat([
+            'border-red-800',
+            'bg-red-400/30'
+        ]);
     }
 
     if(type == "BULLET") {
@@ -106,7 +109,7 @@ function CardGameComponent({ blackPlayer, whitePlayer, status, playDate, registe
                 <GamePlayerInfoComponent player={ whitePlayer } />
             </div>
             <div className={ arrowClassName.join(' ') }></div>
-            <div className={ blackSideClassName.join(' ') + '' }>
+            <div className={ blackSideClassName.join(' ') }>
                 <GamePlayerInfoComponent player={ blackPlayer } />
             </div>
             <img 

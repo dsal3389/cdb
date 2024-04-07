@@ -7,3 +7,29 @@ body {
     background-color: #151515;
     color: #dedede;
 }
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #232323;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #585858;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #828282;
+}
+
+::-moz-selection {
+    color: #333;
+    background-color: #fefefe;
+}
+
+::selection {
+    color: #333;
+    background-color: #fefefe;
+}

@@ -1,9 +1,8 @@
 import asyncio
 from fastapi import APIRouter
-from app.models import Page
-from app.schemas import CreateGameSchema
-from app.crud.game import create_game, get_game_list
+from app.models import Page, CreateGame
 from app.depends import SessionDep
+from app.crud import game
 
 
 MAX_GAMES_PER_PAGE = 10
@@ -13,29 +12,31 @@ router = APIRouter(prefix="/games")
 
 
 @router.get("/")
-async def index(session: SessionDep, page: int = 0, approved_only: bool = True):
-    """list chess games that are stored in the database"""
+async def index(session: SessionDep, page: int = 1):
+    if page <= 0:
+        page = 1
+
     with session.cursor() as cursor:
-        games = get_game_list(
-            cursor,
-            offset=page * MAX_GAMES_PER_PAGE,
-            limit=MAX_GAMES_PER_PAGE,
-            approved_only=approved_only,
+        return Page(
+            index=page,
+            results_per_page=MAX_GAMES_PER_PAGE,
+            count=game.count(cursor),
+            results=game.list_games_info(
+                cursor, offset=(page - 1) * MAX_GAMES_PER_PAGE, limit=MAX_GAMES_PER_PAGE
+            ),
         )
-    return Page(index=page, next="", results=games)
 
 
 @router.post("/add")
-async def add_game(session: SessionDep, game: CreateGameSchema):
-    print(game)
+async def add_game(session: SessionDep, create_game: CreateGame):
     with session.cursor() as cursor:
-        create_game(
-            cursor, 
-            white_player=str(game.white_player_id),
-            black_player=str(game.black_player_id),
-            time_control=game.time_control,
-            status=game.results,
-            play_date=game.play_date,
-            approved=False
+        game.create(
+            cursor,
+            white_player=str(create_game.white_player_id),
+            black_player=str(create_game.black_player_id),
+            time_control=create_game.time_control,
+            status=create_game.results,
+            play_date=create_game.play_date,
+            approved=False,
         )
     return 0

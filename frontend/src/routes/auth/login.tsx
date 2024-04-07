@@ -32,7 +32,7 @@ export default function Login() {
         <div className="max-w-[400px] m-auto mt-16">
             <form className="my-4" onSubmit={ handleSubmit }>
                 <div>
-                    <InputTextComponent name="email" placeholder="email address..." onChange={ handleInput }  />
+                    <InputTextComponent name="email" placeholder="email address..." onChange={ handleInput } />
                 </div>    
                 <div className="my-4">
                     <InputTextComponent name="password" type="password" placeholder="password..."  onChange={ handleInput } />
@@ -41,7 +41,9 @@ export default function Login() {
                     login
                 </InputButtonComponent>
             </form>
-            <Link to="/auth/register">register instead</Link>
+            <Link to="/auth/register" className="text-blue-300 underline">
+                register instead
+            </Link>
         </div>
     </>);
 }

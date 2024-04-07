@@ -1,5 +1,5 @@
 
-export default function CreateGame() {
+export default function AddGame() {
     return <div>
         create
     </div>
