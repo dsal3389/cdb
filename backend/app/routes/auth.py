@@ -8,7 +8,7 @@ from app.models import Token, CreateUser
 from app.crud import profile, user
 
 
-router = APIRouter(prefix="/auth")
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)

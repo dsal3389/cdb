@@ -2,7 +2,7 @@ import { PropsWithChildren, memo } from "react";
 
 
 interface CardMessageComponentProps extends PropsWithChildren {
-    title: string
+    title?: string
     type: "info" | "success" | "alert",
     className?: string
 }
@@ -30,9 +30,11 @@ function CardMessageComponent({title, type, className="", children}: CardMessage
         ])
     }
     return <div className={ cardClassName.join(" ") + " " + className }>
-        <div className="p-2 border-b border-inherit">
-            <h2 className="text-xl font-bold">{ title }</h2>
-        </div>
+        {title ?
+            <div className="p-2 border-b border-inherit">
+                <h2 className="text-xl font-bold">{ title }</h2>
+            </div>
+        : null }
         <div className="p-2">
             { children }
         </div>

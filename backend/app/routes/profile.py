@@ -8,7 +8,7 @@ from app.models import Page
 
 PAGING_MAX_PROFILE_GAMES = 5
 
-router = APIRouter(prefix="/profile")
+router = APIRouter(prefix="/profile", tags=["profile"])
 
 
 @router.get("/{user_id}")

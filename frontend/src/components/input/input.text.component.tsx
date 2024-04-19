@@ -5,8 +5,8 @@ interface InputTextComponentProps extends InputHTMLAttributes<HTMLInputElement> 
     description?: string
 }
 
-function InputTextComponent({ label, description, ...props }: InputTextComponentProps, ref: LegacyRef<HTMLInputElement>) {
-    return <div className="relative border-neutral-700">
+function InputTextComponent({ label, description, className, ...props }: InputTextComponentProps, ref: LegacyRef<HTMLInputElement>) {
+    return <div className={"relative border-neutral-700 " + className}>
         { label ? 
             <div className="absolute top-[-10px] left-[8px] bg-neutral-800 border border-inherit px-1 text-sm select-none">
                 <p>{ label }</p>

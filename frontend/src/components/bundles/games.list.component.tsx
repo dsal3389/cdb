@@ -67,7 +67,7 @@ function GamesListComponent({ queryKeys, queryFunc, onPageChange, initPage=1 }: 
                 </div>
             </>
         :
-            <p>no games</p>
+            <p className="text-center font-bold text-xl">no games</p>
         }
     </div>
 }

@@ -12,6 +12,7 @@ import {
 import Root from './routes/root';
 import Home from './routes/home';
 import AddGame from 'routes/game/add';
+import Games from './routes/game/list';
 import Login from './routes/auth/login';
 import Register from './routes/auth/register';
 import Profile from 'routes/profile/profile';
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
           {
             path: "/games",
             children: [
+              { index: true, element: <Games/> },
               { path: "add", element: <AddGame/> }
             ]
           }

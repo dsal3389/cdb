@@ -51,17 +51,17 @@ export default function Profile() {
             : null}
             <img 
                 draggable="false"
-                className="h-[120px] absolute right-6 bottom-[-50px] border border-inherit rounded-full"
+                className="h-[120px] absolute right-6 bottom-[-50px] border-inherit rounded-full border-2"
                 src={ process.env.REACT_APP_BACKEND_HOSTNAME + "/" + profile.image }/>
         </div>
         <div className="p-2 pb-6 border-inherit">
             <p>description</p>
         </div>
-        <div>
-            <div className="sticky top-[64px] bg-neutral-900 border-b border-inherit p-2">
+        <div className="border-y border-inherit bg-neutral-950">
+            <div className="sticky top-[64px] p-2">
                 <h2 className="text-xl font-bold">Games information</h2>
             </div>
-            <div className="p-2 font-bold border-inherit">
+            <div className="p-2 font-bold">
                 <table className="w-full text-center">
                     <tr>
                         <th>wins as white</th>
@@ -75,6 +75,8 @@ export default function Profile() {
                     </tr>
                 </table>
             </div>
+        </div>
+        <div>
             <ProfileUserGames userId={ userId! } />
         </div>
     </div>

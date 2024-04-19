@@ -1,58 +1,32 @@
-import { Link, useSearchParams } from 'react-router-dom';
-import { ListGames } from 'api/game.http';
-import CardComponent from 'components/card/card.component';
-import InputButtonComponent from 'components/input/input.button.component';
-import GamesListComponent from 'components/bundles/games.list.component';
+import { useAuth } from "api/auth.context";
+import InputButtonComponent from "components/input/input.button.component";
+import { Navigate } from "react-router-dom";
 
 export default function Home() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const page = Number(searchParams.get("page") || "1");
+    const { isAuthenticated } = useAuth()
 
-    const onPageChange = (index: number) => {
-        setSearchParams({ page: index.toString() });
-    } 
+    if(isAuthenticated){
+        return <Navigate to="/games"/>
+    }
 
-    return (
-        <div className='flex flex-row flex-1 justify-center max-sm:flex-col-reverse'>
-            <div className="flex-1 max-w-2xl px-2 border-r border-neutral-700 flex-grow flex-shrink py-2">
-                <GamesListComponent
-                    initPage={page!}
-                    queryKeys={["games"]}
-                    queryFunc={(i: number) =>  ListGames({ index: i })}
-                    onPageChange={onPageChange}
-                />
-            </div>
-            <div className='p-2 w-[260px] space-y-2 select-none leading-tight max-sm:w-full'>
-                <CardComponent>
-                    <Link to="/games/add">
-                        <InputButtonComponent>
-                            <p className='font-bold'>add game</p>
-                        </InputButtonComponent>
-                    </Link>    
-                </CardComponent>
-                <CardComponent className='bg-transparent'>
-                    <div className='flex'>
-                        <img draggable="false" className='h-[32px] self-center pr-2' src={ process.env.PUBLIC_URL + "/" + "bullet.png" } />
-                        <h2 className='text-xl font-bold'>bullet</h2> 
-                    </div>
-                    <p>usually one minute per player, characterized by lightning-fast moves and intense time pressure.</p>
-                </CardComponent>
-                <CardComponent className='bg-transparent'>
-                    <div className='flex'>
-                        <img draggable="false" className='h-[32px] self-center pr-2' src={ process.env.PUBLIC_URL + "/" + "blitz.png" } />
-                        <h2 className='text-xl font-bold'>blitz</h2> 
-                    </div>
-                    <p>games with limited time (usually 3 to 5 minutes), resulting in quick and intense gameplay.</p>
-                </CardComponent>
-                <CardComponent className='bg-transparent'>
-                    <div className='flex'>
-                        <img draggable="false" className='h-[32px] self-center pr-2' src={ process.env.PUBLIC_URL + "/" + "rapid.png" } />
-                        <h2 className='text-xl font-bold'>rapid</h2> 
-                    </div>
-                    <p>often ranging from 10 to 30 minutes per player per game, allows for more thoughtful play</p>
-                </CardComponent>
+    return <div>
+        <div className="relative w-full h-[350px] bg-neutral-300 text-neutral-800 overflow-hidden select-none">
+            <img className="absolute h-[320px] right-1/4 -translate-x-2/4 opacity-35" draggable="false" src={ `${process.env.PUBLIC_URL}/kinght.png` }/>
+            <div className="absolute w-[90%] top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 text-center overflow-hidden">
+                <h2 className="text-5xl font-bold">chess database</h2>
+                <p>Keep track of your chess games.</p>
+                <div className="m-auto mt-12 max-w-[192px]">
+                    <InputButtonComponent className=" w-[160px] bg-transparent" to="/games">
+                        view game list
+                    </InputButtonComponent>
+                </div>    
             </div>
         </div>
-    )
+        <div className="m-auto mt-4 px-2 max-w-2xl space-y-8">
+            <div>
+                <h2 className="text-2xl font-bold">approval system</h2>
+                <p>when adding a game, both players must approve the game</p>
+            </div> 
+        </div>
+    </div>
 }
-

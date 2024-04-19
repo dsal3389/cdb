@@ -8,7 +8,7 @@ from app.crud import game
 MAX_GAMES_PER_PAGE = 10
 
 
-router = APIRouter(prefix="/games")
+router = APIRouter(prefix="/games", tags=["games"])
 
 
 @router.get("/")

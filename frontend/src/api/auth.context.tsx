@@ -25,11 +25,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
     const authenticate = async(username: string, password: string) => {
         const accessToken = await authGetAccessToken(username, password);
-
-        if(accessToken === null){
-            throw Error("wrong credentials were given");
-        }
-
         const currentUser = await authGetCurrentUser(accessToken);
 
         setUser(currentUser);

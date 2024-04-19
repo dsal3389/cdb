@@ -18,7 +18,7 @@ export async function authRegister(username: string, email: string, password: st
     }
 }
 
-export async function authGetAccessToken(username: string, password: string): Promise<string | null> {
+export async function authGetAccessToken(username: string, password: string): Promise<string> {
     const formData = new FormData();
     formData.append("username", username)
     formData.append("password", password)
@@ -28,10 +28,11 @@ export async function authGetAccessToken(username: string, password: string): Pr
         body: formData
     });
 
-    if(response.ok){
-        return (await response.json() as Token).access_token;
+    if(!response.ok){
+        const reason = await response.json();
+        throw Error(reason.detail)
     }
-    return null;
+    return (await response.json() as Token).access_token;
 }
 
 export async function authGetCurrentUser(accessToken: string): Promise<UserInfo> {
