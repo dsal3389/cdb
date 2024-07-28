@@ -9,7 +9,12 @@ from app.crud import profile, user, game
 
 ROUTES_MODULES = ("app.routes.game", "app.routes.auth", "app.routes.profile")
 
-ORIGINS = ("http://localhost:3000", "http://10.100.102.47:3000")  # development endpoint
+ORIGINS = (
+    "http://localhost:3000",
+    "http://localhost:4000",
+    "http://localhost:5173",
+    "http://10.100.102.47:3000",
+)  # development endpoint
 
 
 app = FastAPI()
