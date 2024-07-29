@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import { Button } from "@/components/ui/button";
 import { games } from "@/lib/api/games";
 import GameCard from "@/components/ui/game-card";
 
@@ -9,8 +8,6 @@ export default function IndexRoute() {
     queryKey: "games",
     queryFn: games
   })
-
-  console.log(data)
 
   if (isLoading) {
     return <div>loading...</div>

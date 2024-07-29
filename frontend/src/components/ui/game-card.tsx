@@ -92,7 +92,7 @@ function GameCard({
                         <p className="pl-2">game is approved by both parties</p>
                       </div>
                       :
-                      <div className="border border-red-600 rounded-md p-2 flex bg-red-600/20 items-center">
+                      <div className="border border-red-600 rounded-md p-2 flex bg-red-600/20 items-center text-red-200">
                         <LuBadgeAlert size={24} />
                         <p className="pl-2">game is not approved</p>
                       </div>
@@ -101,10 +101,10 @@ function GameCard({
                     <GameCardAvatar {...white_player} />
                   </div>
                   <div className="border rounded-md p-2">
-                    <p>game registered at {register_date}</p>
+                    <p>register date: {register_date}</p>
                   </div>
                   <div className="border rounded-md p-2">
-                    <p>game was played at {play_date}</p>
+                    <p>play date: {play_date}</p>
                   </div>
                 </div>
               </div>

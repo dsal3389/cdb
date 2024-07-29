@@ -1,3 +1,7 @@
+export interface Token {
+  access_token: string,
+  token_type: string
+}
 
 export interface Page<T> {
   results: T[],
@@ -5,6 +9,13 @@ export interface Page<T> {
   count: number,
   prev: boolean,
   next: boolean
+}
+
+export interface CurrentUser {
+  id: string,
+  username: string,
+  image: string,
+  elo: number
 }
 
 export interface UserBrief {
@@ -26,7 +37,7 @@ export enum GameType {
   RAPID = "RAPID"
 }
 
-export interface GameInfo {
+export interface Game {
   id: number,
   approved: boolean,
   time_control: string,

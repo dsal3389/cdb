@@ -1,30 +1,27 @@
-import contextlib
 import psycopg2.pool
-from typing import Iterable
+from typing import AsyncGenerator
 from urllib.parse import urlparse
 from app.core.settings import settings
 
 
-url_parts = urlparse(settings.DATABASE_URL)
-
-
-connection_pool = psycopg2.pool.SimpleConnectionPool(
+_url_parts = urlparse(settings.DATABASE_URL)
+_connection_pool = psycopg2.pool.SimpleConnectionPool(
     minconn=5,
     maxconn=15,
-    user=url_parts.username,
-    password=url_parts.password,
-    host=url_parts.hostname,
-    port=url_parts.port,
-    database=url_parts.path[1:],
+    user=_url_parts.username,
+    password=_url_parts.password,
+    host=_url_parts.hostname,
+    port=_url_parts.port,
+    database=_url_parts.path[1:],
 )
 
 
-async def database_session() -> Iterable[psycopg2.extensions.connection]:
+async def database_session() -> AsyncGenerator[psycopg2.extensions.connection, None]:
     connection = None
 
     try:
-        connection = connection_pool.getconn()
+        connection = _connection_pool.getconn()
         yield connection
     finally:
         if connection:
-            connection_pool.putconn(connection)
+            _connection_pool.putconn(connection)

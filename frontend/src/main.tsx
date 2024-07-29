@@ -1,13 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { ThemeProvider } from '@/components/theme-provider'
 import IndexRoute from '@/routes/index'
-import RootLayout from './routes/root'
+import RootLayout from '@/routes/root'
+import AuthRoute from '@/routes/auth'
+import AuthProvider from '@/lib/auth.provider'
 import './index.css'
-import AuthRoute from './routes/auth'
 
 const queryClient = new QueryClient()
 
@@ -29,7 +30,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme='dark' storageKey="">
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>,

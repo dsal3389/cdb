@@ -85,16 +85,6 @@ class GameTimeControl(str, enum.Enum):
 class Game(BaseModel):
     id: int
     approved: bool
-    white_player: ProfileBrief
-    black_player: ProfileBrief
-    time: int
-    register_date: date
-    play_date: date
-
-
-class GameInfo(BaseModel):
-    id: int
-    approved: bool
     time_control: GameTimeControl
     white_player: ProfileBrief
     black_player: ProfileBrief
