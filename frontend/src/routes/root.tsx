@@ -9,6 +9,7 @@ import Header from "@/components/ui/header";
 
 export default function RootLayout() {
   const { user } = useAuth();
+  console.log(user)
   return (
     <>
       <Header position='sticky'>
@@ -17,9 +18,11 @@ export default function RootLayout() {
         <div className="flex space-x-2">
           {user ?
             <>
-              <Button variant="outline">
-                <FiPlus className="mr-2 h-4 w-4" /> add game
-              </Button>
+              <Link to="/games/create">
+                <Button variant="outline">
+                  <FiPlus className="mr-2 h-4 w-4" /> add game
+                </Button>
+              </Link>
               <Avatar>
                 <AvatarImage src={import.meta.env.VITE_APP_BACKEND_HOSTNAME + "/" + user!.image} />
                 <AvatarFallback>{user!.username.slice(0, 2)}</AvatarFallback>

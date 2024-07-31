@@ -19,6 +19,10 @@ export async function authGetCurrentUser(token: string): Promise<CurrentUser> {
     method: "GET",
     headers: { "Authorization": `Bearer ${token}` }
   });
-  return (await response.json())
+  const response_json = await response.json();
+  if (!response.ok) {
+    throw new Error(response_json.details)
+  }
+  return response_json
 }
 

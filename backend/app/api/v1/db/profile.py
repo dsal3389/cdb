@@ -1,6 +1,6 @@
 import pathlib
 from typing import Optional
-from pypika import Table, Query, Column
+from pypika import Table, Query, Column, functions as fn
 
 from app.core import settings
 from .user import USER_TABLE
@@ -13,6 +13,7 @@ __all__ = (
     "create_profile",
     "get_profile_by_user_id",
     "get_profile_brief_by_user_id",
+    "lookup_profile_brief_by_username_str",
 )
 
 
@@ -91,3 +92,28 @@ def get_profile_brief_by_user_id(cursor, user_id: str) -> Optional[models.Profil
             image=profile_data[2],
             elo=profile_data[3],
         )
+
+
+def lookup_profile_brief_by_username_str(
+    cursor, s: str, limit: int
+) -> list[models.ProfileBrief]:
+    cursor.execute(
+        Query.from_(PROFILE_TABLE)
+        .join(USER_TABLE)
+        .on(PROFILE_TABLE.user_id == USER_TABLE.id)
+        .select(
+            USER_TABLE.id, USER_TABLE.username, PROFILE_TABLE.image, PROFILE_TABLE.elo
+        )
+        .where(USER_TABLE.username.like(f"%{s}%"))
+        .limit(limit)
+        .get_sql()
+    )
+
+    results = []
+    for result in cursor.fetchall():
+        results.append(
+            models.ProfileBrief(
+                id=result[0], username=result[1], image=result[2], elo=result[3]
+            )
+        )
+    return results

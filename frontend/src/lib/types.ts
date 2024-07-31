@@ -3,12 +3,11 @@ export interface Token {
   token_type: string
 }
 
-export interface Page<T> {
-  results: T[],
+export interface Results<T> {
   index: number,
   count: number,
-  prev: boolean,
-  next: boolean
+  results_per_page: number,
+  results: T[],
 }
 
 export interface CurrentUser {
@@ -18,7 +17,7 @@ export interface CurrentUser {
   elo: number
 }
 
-export interface UserBrief {
+export interface ProfileBrief {
   id: string,
   username: string,
   image: string,
@@ -41,8 +40,8 @@ export interface Game {
   id: number,
   approved: boolean,
   time_control: string,
-  white_player: UserBrief,
-  black_player: UserBrief,
+  white_player: ProfileBrief,
+  black_player: ProfileBrief,
   status: GameStatus,
   register_date: string,
   play_date: string,

@@ -8,6 +8,7 @@ import IndexRoute from '@/routes/index'
 import RootLayout from '@/routes/root'
 import AuthRoute from '@/routes/auth'
 import AuthProvider from '@/lib/auth.provider'
+import CreateGameRoute from '@/routes/games/create'
 import './index.css'
 
 const queryClient = new QueryClient()
@@ -21,6 +22,15 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <AuthRoute />
+      },
+      {
+        path: "/games",
+        children: [
+          {
+            path: "/games/create",
+            element: <CreateGameRoute />
+          }
+        ]
       }
     ]
   }

@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { games } from "@/lib/api/games";
-import GameCard from "@/components/ui/game-card";
+import GameCard from "@/components/ui/custom/game-card";
 
 
 export default function IndexRoute() {

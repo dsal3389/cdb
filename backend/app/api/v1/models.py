@@ -1,24 +1,18 @@
 import uuid
 import enum
 import pathlib
-from typing import Any
 from datetime import date
+from typing import Any, Generic, TypeVar
 from pydantic import BaseModel, computed_field, Field
 
 
-class Page(BaseModel):
-    index: int
+T = TypeVar("T")
+
+
+class Results(BaseModel, Generic[T]):
     count: int
     results_per_page: int = Field(exclude=True)
-    results: list[Any]
-
-    @computed_field
-    def prev(self) -> bool:
-        return self.index > 1
-
-    @computed_field
-    def next(self) -> bool:
-        return self.index * self.results_per_page < self.count
+    results: list[T]
 
 
 class Token(BaseModel):

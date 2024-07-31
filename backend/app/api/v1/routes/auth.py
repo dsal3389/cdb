@@ -14,6 +14,7 @@ async def register(
     session: deps.SessionDep,
     user_schema: Annotated[models.CreateUser, Body(embed=False)],
 ) -> None:
+    """register new username to the database and creates for him a profile"""
     with session.cursor() as cursor:
         created_user_id = db.create_user(
             cursor,
@@ -26,10 +27,11 @@ async def register(
     session.commit()
 
 
-@router.post("/token")
+@router.post("/token", response_model=models.Token)
 async def token(
     session: deps.SessionDep, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
-) -> models.Token:
+):
+    """return bearer token for registered user"""
     hashed_password = hash_password(form_data.password)
 
     with session.cursor() as cursor:
@@ -48,7 +50,8 @@ async def token(
     return models.Token(access_token=token, token_type="bearer")
 
 
-@router.get("/me")
+@router.get("/me", response_model=models.ProfileBrief)
 async def current_user(session: deps.SessionDep, user: deps.CurrentUserDep):
+    """returns the current authenticated user based on given bearer token"""
     with session.cursor() as cursor:
         return db.get_profile_brief_by_user_id(cursor, str(user.id))
